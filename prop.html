@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Someone Special ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+
+background:linear-gradient(-45deg,#ff5f6d,#ffc371,#ff6ec4,#7873f5);
+
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+}
+
+
+@keyframes bg{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+
+.card{
+
+width:420px;
+
+background:rgba(255,255,255,.15);
+
+backdrop-filter:blur(15px);
+
+padding:35px;
+
+border-radius:25px;
+
+text-align:center;
+
+color:white;
+
+box-shadow:0 10px 40px rgba(0,0,0,.3);
+
+}
+
+
+img{
+
+width:170px;
+
+height:170px;
+
+border-radius:50%;
+
+border:5px solid white;
+
+object-fit:cover;
+
+margin-bottom:20px;
+
+}
+
+
+h1{
+
+font-size:34px;
+
+margin-bottom:10px;
+
+}
+
+
+p{
+
+font-size:18px;
+
+margin-bottom:25px;
+
+line-height:1.6;
+
+}
+
+
+button{
+
+padding:14px 35px;
+
+font-size:18px;
+
+border:none;
+
+border-radius:50px;
+
+cursor:pointer;
+
+margin:10px;
+
+transition:.3s;
+
+}
+
+
+#yes{
+
+background:#ff1744;
+
+color:white;
+
+}
+
+
+#yes:hover{
+
+transform:scale(1.1);
+
+}
+
+
+#no{
+
+background:white;
+
+color:#444;
+
+position:fixed;
+
+z-index:1000;
+
+}
+
+
+.heart{
+
+position:absolute;
+
+color:#ff1744;
+
+animation:float 5s linear forwards;
+
+}
+
+
+@keyframes float{
+
+from{
+
+transform:translateY(100vh);
+
+opacity:1;
+
+}
+
+to{
+
+transform:translateY(-100px);
+
+opacity:0;
+
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="card">
+
+
+<img src="ourphoto.png" alt="ourphoto.png">
+
+
+<h1>Dear Love ❤️</h1>
+
+
+<p>
+
+Every moment with you has become one of my favorite memories.
+
+You make ordinary days feel extraordinary.
+
+I don't know what the future holds,
+
+but I know I'd love to face it with you.
+
+</p>
+
+
+<h2>Will You Be Mine Forever? 💍</h2>
+
+
+<br>
+
+
+<button id="yes">YES ❤️</button>
+
+<button id="no">NO 😅</button>
+
+
+</div>
+<script>
+
+const yes=document.getElementById("yes");
+const no=document.getElementById("no");
+
+
+// -------- NO BUTTON ESCAPE SYSTEM --------
+
+let escapeCount = 0;
+const maxEscapes = 100;
+let canMove = true;
+
+const texts = [
+    "No😅",
+    "Nope 😂",
+    "Missed Me 😜",
+    "Try Again 😆",
+    "Too Slow 😎",
+    "Catch Me 🤭",
+    "Almost 😅",
+    "Still No 😂",
+    "Haha 🤣",
+    "Last Chance 😳",
+    "Almost There 😬",
+    "Give Up? 😏",
+    "Not Yet 😝",
+    "Keep Trying 😅",
+    "You Can't Catch Me 😎",
+    "So Close 😣",
+    "Better Luck Next Time 😅",
+    "Almost Got Me 😜",
+    "Try Again Soon 😉",
+    "Not Today 😝"
+];
+
+
+function moveNoButton(){
+
+    if(!canMove || escapeCount >= maxEscapes){
+        return;
+    }
+
+
+    canMove = false;
+
+    escapeCount++;
+
+
+    const maxX = window.innerWidth - no.offsetWidth - 20;
+
+    const maxY = window.innerHeight - no.offsetHeight - 20;
+
+
+    no.style.position = "fixed";
+
+    no.style.left = Math.random() * maxX + "px";
+
+    no.style.top = Math.random() * maxY + "px";
+
+
+    // Change button text every escape
+
+    no.innerHTML = texts[(escapeCount - 1) % texts.length];
+
+
+    // Shrink slowly
+
+    const scale = Math.max(0.7, 1 - escapeCount * 0.005);
+
+    no.style.transform = `scale(${scale})`;
+
+    no.style.transition = "all 0.2s ease";
+
+
+
+    // Delay prevents instant multiple escapes
+
+    setTimeout(()=>{
+
+        canMove = true;
+
+    },800);
+
+
+
+    if(escapeCount >= maxEscapes){
+
+        no.innerHTML = "Okay 😅";
+
+        no.style.transform = "scale(1)";
+
+        no.style.background = "#ddd";
+
+
+        no.removeEventListener("mouseover",moveNoButton);
+
+    }
+
+}
+
+
+
+no.addEventListener("mouseover",moveNoButton);
+
+
+
+// Mobile support
+
+no.addEventListener("touchstart",(e)=>{
+
+    e.preventDefault();
+
+    moveNoButton();
+
+});
+
+
+
+
+
+// -------- YES BUTTON --------
+
+
+yes.onclick=()=>{
+
+
+document.body.innerHTML=`
+
+<div style="height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+text-align:center;
+
+background:black;
+
+color:white;">
+
+
+<h1 style="font-size:70px;">
+❤️ HE SAID YES ❤️
+</h1>
+
+
+<h2 style="margin-top:20px;">
+Best Day Ever!
+</h2>
+
+
+<h3 style="margin-top:20px;">
+I Love You Forever 💖
+</h3>
+
+
+</div>
+
+`;
+
+
+setInterval(createHeart,120);
+
+
+};
+
+
+
+
+
+// -------- HEART ANIMATION --------
+
+
+function createHeart(){
+
+
+const heart=document.createElement("div");
+
+
+heart.className="heart";
+
+
+heart.innerHTML="❤️";
+
+
+heart.style.left=Math.random()*window.innerWidth+"px";
+
+
+heart.style.fontSize=(20+Math.random()*40)+"px";
+
+
+document.body.appendChild(heart);
+
+
+
+setTimeout(()=>{
+
+heart.remove();
+
+},5000);
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
